@@ -1,3 +1,7 @@
+/**
+ * @author : Saturnin Dao
+ * @since : 17/05/2020, dim. 01:19
+ **/
 import java.util.List;
 
 public interface ICinema {

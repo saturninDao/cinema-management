@@ -1,3 +1,7 @@
+/**
+ * @author : Saturnin Dao
+ * @since : 17/05/2020, dim. 01:19
+ **/
 public class Seance {
     public Film film;
     String dateEtHoraireDeProjection;

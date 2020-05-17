@@ -1,3 +1,7 @@
+/**
+ * @author : Saturnin Dao
+ * @since : 17/05/2020, dim. 01:19
+ **/
 import java.util.*;
 
 public class Cinema implements ICinema,IGestCinema {
@@ -53,8 +57,9 @@ public class Cinema implements ICinema,IGestCinema {
     @Override
     public boolean achetePlace(String titreFilm, String jourHoraire, int tarif) throws PasDeSeanceException {
         for (Seance seance: seances){
-            if (!seance.film.getTitreFilm().equals(titreFilm) | !seance.dateEtHoraireDeProjection.equals(jourHoraire))
+            if (!seance.film.getTitreFilm().equals(titreFilm) | !seance.dateEtHoraireDeProjection.equals(jourHoraire)) {
                 throw new PasDeSeanceException();
+            }
 
             switch (tarif){
                 case 5:
