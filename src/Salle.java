@@ -1,8 +1,10 @@
+import java.io.Serializable;
+
 /*
  * @author : Saturnin Dao
  * @since : 17/05/2020, dim. 01:19
  **/
-public class Salle {
+public class Salle implements Serializable {
     private int nombreDePlace;
     private String nomDeLaSalle;
 

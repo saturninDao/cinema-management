@@ -2,14 +2,20 @@
  * @author : Saturnin Dao
  * @since : 17/05/2020, dim. 01:19
  **/
+import java.io.Serializable;
 import java.util.*;
 
-public class Cinema implements ICinema,IGestCinema {
+public class Cinema implements ICinema,IGestCinema,Serializable {
 
     private final List<Seance> seances = new ArrayList<>();
     private final List<Film> baseDuCinema = new ArrayList<>();
 
     public Cinema(){}
+
+    public String toString(){
+        return "Les Seances sont: "+ lesSeances() + "\n"+
+                "Le chiffre d'affaire est: "+ calculeChiffreAffaires() + "\n";
+    }
 
     public void setSeances(Seance seance) {
         this.seances.add(seance);

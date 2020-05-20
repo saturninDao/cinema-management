@@ -5,13 +5,11 @@
 import java.io.*;
 import java.util.Scanner;
 
-public class Main implements Serializable {
+public class Main{
     static Scanner sc;
     static int saisie;
     static Cinema cinema;
-    static Film filmo = null;
-
-
+    static Cinema cine = null;
 
 
     public static void main(String ...arg) throws IOException {
@@ -36,9 +34,6 @@ public class Main implements Serializable {
                 sc = new Scanner(System.in);
                 saisie = sc.nextInt();
                 cinema = new Cinema();
-
-
-
 
                 if (saisie > 0) {
                     for (int i = 0; i < saisie; i++) {
@@ -91,16 +86,15 @@ public class Main implements Serializable {
                         Film aEcrire = new Film(titre, realisateur, annee, descriptif, aLaffiche);
 
                             try {
-                                FileOutputStream fichier = new FileOutputStream("/tmp/monJolieFichier6.txt");
+                                FileOutputStream fichier = new FileOutputStream("/tmp/monJolieFichier8.txt");
                                 ObjectOutputStream oos = new ObjectOutputStream(fichier);
-                                oos.writeObject(aEcrire);
+                                oos.writeObject(cinema);
                                 oos.close();
                                 fichier.close();
                                 System.out.println("Le fichier serialisé a bien été écrit.");
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
-
 
                     }
                     gestionDesDonnees();
@@ -235,17 +229,16 @@ public class Main implements Serializable {
         try {
             System.out.println("Affichage :");
             System.out.println("*************************\n");
-            FileInputStream fileIn = new FileInputStream("/tmp/monJolieFichier6.txt");
+            FileInputStream fileIn = new FileInputStream("/tmp/monJolieFichier8.txt");
             ObjectInputStream in = new ObjectInputStream(fileIn);
-            filmo = (Film) in.readObject();
+            cine = (Cinema) in.readObject();
             in.close();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } finally {
-            System.out.println(filmo.titreFilm);
-            System.out.println(filmo.toString());
+            //System.out.println(filmo.titreFilm);
+            System.out.println(cine.toString());
         }
-
     }
 
     }

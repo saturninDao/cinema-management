@@ -1,8 +1,10 @@
+import java.io.Serializable;
+
 /*
  * @author : Saturnin Dao
  * @since : 17/05/2020, dim. 01:19
  **/
-public class Seance {
+public class Seance implements Serializable {
     public Film film;
     String dateEtHoraireDeProjection;
     Salle salle;
