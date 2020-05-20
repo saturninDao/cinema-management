@@ -1,21 +1,30 @@
-/**
+/*
  * @author : Saturnin Dao
  * @since : 17/05/2020, dim. 01:19
  **/
+import java.io.*;
 import java.util.Scanner;
 
-public class Main {
+public class Main implements Serializable {
     static Scanner sc;
     static int saisie;
     static Cinema cinema;
+    static Film filmo = null;
 
-    public static void main(String ...arg){
+
+
+
+    public static void main(String ...arg) throws IOException {
         System.out.println("********************************* APPLICATION DE GESTION DE CINEMA *******************************");
-        ajoutUneSeance();
+        lireLeFichier();
+
+        //ajoutUneSeance();
         //gestionDesDonnees();
+
+        // Declarons notre fichier pour la serialization
     }
 
-    public static void ajoutUneSeance(){
+    public static void ajoutUneSeance() throws IOException {
         System.out.println("             1: Ajouter des seances");
         System.out.println("             0: Quitter le progamme");
         sc = new Scanner(System.in);
@@ -27,6 +36,10 @@ public class Main {
                 sc = new Scanner(System.in);
                 saisie = sc.nextInt();
                 cinema = new Cinema();
+
+
+
+
                 if (saisie > 0) {
                     for (int i = 0; i < saisie; i++) {
                         //titre du film
@@ -35,31 +48,32 @@ public class Main {
                         String titre = (new Scanner(System.in)).nextLine();
 
                         //nom du realisateur du film
-                        System.out.println("                       Saisir le nom du realisateur du film" + titre);
+                        System.out.println("                       Saisir le nom du realisateur du film " + titre);
                         String realisateur = (new Scanner(System.in)).nextLine();
 
                         //descriptif du film
-                        System.out.println("                       Saisir une description du film" + titre);
+                        System.out.println("                       Saisir une description du film " + titre);
                         String descriptif = (new Scanner(System.in)).nextLine();
 
                         //annee de sortie du film
-                        System.out.println("                       Saisir l'annee de sortie du film" + titre);
+                        System.out.println("                       Saisir l'annee de sortie du film " + titre);
                         int annee = (new Scanner(System.in)).nextInt();
 
                         //nom de la salle de difusion
-                        System.out.println("                       Saisir un nom de la salle d'exposition film" + titre);
+                        System.out.println("                       Saisir un nom de la salle d'exposition film " + titre);
                         String libelesalle = (new Scanner(System.in)).nextLine();
 
                         //nombre de place de la salle
-                        System.out.println("                       saisir le nombre de place de la salle" + libelesalle);
+                        System.out.println("                       saisir le nombre de place de la salle " + libelesalle);
                         int nombredePlace = (new Scanner(System.in)).nextInt();
 
                         //jour et heure de diffusion
-                        System.out.println("                       saisir le jour et l'heure de la diffusion");
+                        System.out.println("                       saisir le jour et l'heure de la diffusion ");
                         String jourhoraire = (new Scanner(System.in)).nextLine();
 
                         //Le fil est il a laffiche
-                        System.out.println("                       Le fil est il a laffiche?");
+                        System.out.println("                       Le fil est il a laffiche (true/falseBonsoir" +
+                                ")? ");
                         boolean aLaffiche = (new Scanner(System.in)).nextBoolean();
 
                         cinema.setSeances(
@@ -74,6 +88,20 @@ public class Main {
                                         0,
                                         0
                         ));
+                        Film aEcrire = new Film(titre, realisateur, annee, descriptif, aLaffiche);
+
+                            try {
+                                FileOutputStream fichier = new FileOutputStream("/tmp/monJolieFichier6.txt");
+                                ObjectOutputStream oos = new ObjectOutputStream(fichier);
+                                oos.writeObject(aEcrire);
+                                oos.close();
+                                fichier.close();
+                                System.out.println("Le fichier serialisé a bien été écrit.");
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+
                     }
                     gestionDesDonnees();
                 } else {
@@ -84,6 +112,9 @@ public class Main {
             default -> ajoutUneSeance();
         }
         }
+
+
+
 
     private static void gestionDesDonnees() {
         System.out.println(" A :******* Recherche d'un renseignement ou achat de ticket************* ");
@@ -195,6 +226,26 @@ public class Main {
             case 0 -> gestionDesDonnees();
             default -> gettingInformation();
         }
+    }
+
+
+    public static void lireLeFichier() throws IOException {
+        //On récupère maintenant les données !
+
+        try {
+            System.out.println("Affichage :");
+            System.out.println("*************************\n");
+            FileInputStream fileIn = new FileInputStream("/tmp/monJolieFichier6.txt");
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            filmo = (Film) in.readObject();
+            in.close();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            System.out.println(filmo.titreFilm);
+            System.out.println(filmo.toString());
+        }
+
     }
 
     }

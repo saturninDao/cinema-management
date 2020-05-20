@@ -1,13 +1,16 @@
-/**
+import java.io.Serializable;
+
+/*
  * @author : Saturnin Dao
  * @since : 17/05/2020, dim. 01:19
  **/
-public class Film {
-    private String titreFilm;
+public class Film implements Serializable {
+    public String titreFilm;
     private String realisateur;
     private int annee;
     private String descriptif;
     private boolean aLaffiche;
+    private static final long serialVersionUID = 1234L;
 
     public Film(String titreFilm, String realisateur, int annee, String descriptif, boolean aLaffiche) {
         this.titreFilm = titreFilm;
@@ -15,6 +18,10 @@ public class Film {
         this.annee = annee;
         this.descriptif = descriptif;
         this.aLaffiche = aLaffiche;
+    }
+
+    public String toString(){
+        return "Nom du film : " + this.titreFilm;
     }
 
     public Film(String titreFilm, String annee, boolean aLaffiche) {}

@@ -1,16 +1,14 @@
-/**
+/*
  * @author : Saturnin Dao
  * @since : 17/05/2020, dim. 01:19
  **/
 import java.util.*;
 
 public class Cinema implements ICinema,IGestCinema {
-    private List<Seance> seances = new ArrayList<>();
 
-    private List<Film> baseDuCinema = new ArrayList<>();
-    private Film film;
+    private final List<Seance> seances = new ArrayList<>();
+    private final List<Film> baseDuCinema = new ArrayList<>();
 
-    public Cinema(List<Seance> seances, int tarifNormal, int tarifReduit, boolean placesGratuites) {}
     public Cinema(){}
 
     public void setSeances(Seance seance) {
@@ -61,20 +59,20 @@ public class Cinema implements ICinema,IGestCinema {
                 throw new PasDeSeanceException();
             }
 
-            switch (tarif){
-                case 5:
-                    seance.setPlaceTarifNormal();
-                    break;
-                case 2:
-                    seance.setPlaceTarifReduit();
-                case 0:
-                    seance.setPlaceTarifGratuit();
-                default:
-                    seance.setPlaceTarifNormal();
-            }
-
             if (seance.estComplete()){
-            return false;
+                return false;
+            }else {
+                switch (tarif) {
+                    case 5:
+                        seance.setPlaceTarifNormal();
+                        break;
+                    case 2:
+                        seance.setPlaceTarifReduit();
+                    case 0:
+                        seance.setPlaceTarifGratuit();
+                    default:
+                        seance.setPlaceTarifNormal();
+                }
             }
         }
         return true;
@@ -82,7 +80,7 @@ public class Cinema implements ICinema,IGestCinema {
 
     @Override
     public void creerFilm(String titreFilm, String descriptif, String realisateur, int annee) {
-        film = new Film(titreFilm,realisateur,annee,descriptif,false);
+        Film film = new Film(titreFilm, realisateur, annee, descriptif, false);
         baseDuCinema.add(film);
     }
 
