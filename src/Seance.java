@@ -28,6 +28,7 @@ public class Seance implements Serializable {
         this.placeTarifGratuit = placeTarifGratuit;
     }
 
+
     public void setTarifNormal(int tarifNormal) {
         this.tarifNormal = tarifNormal;
     }

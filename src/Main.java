@@ -3,28 +3,30 @@
  * @since : 17/05/2020, dim. 01:19
  **/
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main{
     static Scanner sc;
     static int saisie;
     static Cinema cinema;
-    static Cinema cine = null;
-
+    static Cinema cinesPourLeFichier;
+    static Cinema cineBUff;
 
     public static void main(String ...arg) throws IOException {
-        System.out.println("********************************* APPLICATION DE GESTION DE CINEMA *******************************");
-        lireLeFichier();
-
-        //ajoutUneSeance();
+        System.out.println("********************************* APPLICATION DE GESTION DE CINEMA VERSION SERIALISE *******************************");
+        cinema = cineBUff;
+        ajoutUneSeance();
         //gestionDesDonnees();
-
         // Declarons notre fichier pour la serialization
     }
 
     public static void ajoutUneSeance() throws IOException {
+
         System.out.println("             1: Ajouter des seances");
         System.out.println("             0: Quitter le progamme");
+        System.out.println("             2: Voir les donnees du fichier serialise (veillez enregistrer des seances avant de consulter)");
         sc = new Scanner(System.in);
         saisie = sc.nextInt();
 
@@ -83,10 +85,11 @@ public class Main{
                                         0,
                                         0
                         ));
-                        Film aEcrire = new Film(titre, realisateur, annee, descriptif, aLaffiche);
+
+                        cinesPourLeFichier = cinema;
 
                             try {
-                                FileOutputStream fichier = new FileOutputStream("/tmp/monJolieFichier8.txt");
+                                FileOutputStream fichier = new FileOutputStream("fichier12.txt");
                                 ObjectOutputStream oos = new ObjectOutputStream(fichier);
                                 oos.writeObject(cinema);
                                 oos.close();
@@ -103,11 +106,10 @@ public class Main{
                 }
             }
             case 0 -> System.out.println("/.....................Merci d'avoir utiliser le programme......................../");
+            case 2 -> lireLeFichier();
             default -> ajoutUneSeance();
         }
         }
-
-
 
 
     private static void gestionDesDonnees() {
@@ -227,20 +229,20 @@ public class Main{
         //On récupère maintenant les données !
 
         try {
-            System.out.println("Affichage :");
+            System.out.println("Affichage des données dans le fichier :");
             System.out.println("*************************\n");
-            FileInputStream fileIn = new FileInputStream("/tmp/monJolieFichier8.txt");
+            FileInputStream fileIn = new FileInputStream("fichier12.txt");
             ObjectInputStream in = new ObjectInputStream(fileIn);
-            cine = (Cinema) in.readObject();
+            cineBUff = (Cinema) in.readObject();
+            cinema = cineBUff;
             in.close();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } finally {
             //System.out.println(filmo.titreFilm);
-            System.out.println(cine.toString());
+            System.out.println(cineBUff.lesSeances());
         }
     }
-
     }
 
 

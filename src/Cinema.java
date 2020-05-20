@@ -12,10 +12,6 @@ public class Cinema implements ICinema,IGestCinema,Serializable {
 
     public Cinema(){}
 
-    public String toString(){
-        return "Les Seances sont: "+ lesSeances() + "\n"+
-                "Le chiffre d'affaire est: "+ calculeChiffreAffaires() + "\n";
-    }
 
     public void setSeances(Seance seance) {
         this.seances.add(seance);
